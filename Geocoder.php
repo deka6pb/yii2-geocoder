@@ -1,6 +1,6 @@
 <?php
 
-namespace common\services\geocoder;
+namespace deka6pb\geocoder;
 
 use deka6pb\geocoder\coders\GoogleCoder;
 use deka6pb\geocoder\coders\YandexCoder;
