@@ -24,7 +24,7 @@ findByOnePoint(Point $point, $kind, Point $radius = null, array $params = [])
 ```
 
 For example:
-
+-----------------------------------------
 ```
 $address = "2707 Congress St., San Diego, CA 92110";
 
