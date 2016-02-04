@@ -1,0 +1,34 @@
+{
+  "name": "deka6pb/yii2-geocoder",
+  "description": "Yii 2 Geocoder",
+  "keywords": [
+    "yii2",
+    "yii2-geocoder",
+    "geocoder",
+    "deka6pb"
+  ],
+  "homepahe": "https://github.com/deka6pb/yii2-geocoder",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mikhail Maklashov",
+      "email": "deka6pb@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+  },
+  "require-dev": {
+    "yiisoft/yii2-codeception": "~2.0",
+    "codeception/specify": "*",
+    "codeception/verify": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "deka6pb\\geocoder\\": ""
+    }
+  }
+}
+Status API Training Shop Blog About Pricing
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
