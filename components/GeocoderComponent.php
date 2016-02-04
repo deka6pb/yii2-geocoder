@@ -31,7 +31,7 @@ class GeocoderComponent extends Component
                 $this->_geocoder = Geocoder::build(Geocoder::TYPE_YANDEX);
                 break;
             case "en":
-                $this->_geocoder = Geocoder::build(Geocoder::TYPE_YANDEX);
+                $this->_geocoder = Geocoder::build(Geocoder::TYPE_GOOGLE);
                 break;
         }
 
