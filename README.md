@@ -1,5 +1,9 @@
 # yii2-geocoder
 
+Description
+============
+This module need to find the coordinates by address using The Google Maps Geocoding API or Yandex Geocoder API.
+
 Installation
 ============
 
@@ -10,6 +14,12 @@ Download Yii2-geocoder using composer
 
 Add `"deka6pb/yii2-geocoder": "*"` to the require section of your **composer.json** file and run
 `composer update` to download and install Yii2-autoparser.
+
+```
+Geocoders:
+- Geocoder::TYPE_GOOGLE
+- Geocoder::TYPE_YANDEX
+```
 
 Methods:
 
