@@ -3,8 +3,7 @@
 Installation
 ============
 
-This document will guide you through the process of installing Yii2-autoparser using **composer**. Installation is a quick
-and easy three-step process.
+This document will guide you through the process of installing Yii2-geocoder using **composer**.
 
 Download Yii2-geocoder using composer
 -----------------------------------------
