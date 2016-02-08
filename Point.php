@@ -10,7 +10,7 @@ use yii\base\Object as BaseObject;
 
 /**
  * Class Point
- * @package common\services\yandex\geo
+ * @package deka6pb\yii2-geocoder
  *
  * @property double $latitude
  * @property double $longitude

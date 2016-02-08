@@ -6,7 +6,7 @@ use deka6pb\geocoder\Point;
 
 /**
  * Interface PointInterface
- * @package common\components\geo
+ * @package deka6pb\yii2-geocoder
  */
 interface PointInterface
 {
@@ -14,7 +14,7 @@ interface PointInterface
     /**
      * Returns Point object
      *
-     * @return \common\services\yandex\geo\Point
+     * @return Point
      */
     public function getPoint();
 

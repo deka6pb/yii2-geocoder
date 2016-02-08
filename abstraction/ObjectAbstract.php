@@ -36,6 +36,25 @@ abstract class ObjectAbstract extends \yii\base\Object
     protected $description;
 
     /**
+     * ObjectAbstract constructor.
+     * @param array $config
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct();
+
+        $this->initialization($config);
+    }
+
+    /**
+     * Initialization by config
+     *
+     * @param array $config
+     * @return mixed
+     */
+    abstract function initialization($config = []);
+
+    /**
      * Returns type
      *
      * @return string
@@ -66,16 +85,25 @@ abstract class ObjectAbstract extends \yii\base\Object
         return $this->point;
     }
 
+    /**
+     * @return string
+     */
     public function getLatitude()
     {
         return $this->point->getLatitude();
     }
 
+    /**
+     * @return string
+     */
     public function getLongitude()
     {
         return $this->point->getLongitude();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAddress()
     {
         return $this->address;
@@ -97,15 +125,11 @@ abstract class ObjectAbstract extends \yii\base\Object
         return $this->type === self::KIND_HOUSE ? true : false;
     }
 
+    /**
+     * @return bool
+     */
     public function isStreet()
     {
         return $this->type === self::KIND_STREET ? true : false;
     }
-
-    public function __construct($config = [])
-    {
-        $this->initialization($config);
-    }
-
-    abstract function initialization($config = []);
 }
