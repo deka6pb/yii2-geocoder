@@ -29,14 +29,24 @@ class GoogleObject extends ObjectAbstract
                 $this->data['country'] = ArrayHelper::getValue($component, 'long_name');
                 $this->data['countrySlug'] = ArrayHelper::getValue($component, 'short_name');
             }
-            // Округ
-            if(in_array('administrative_area_level_2', $component['types'])) {
+            // Штат
+            if(in_array('administrative_area_level_1', $component['types'])) {
                 $this->data['area'] = ArrayHelper::getValue($component, 'long_name');
             }
             // Город
-            if(in_array('administrative_area_level_1', $component['types'])) {
+            if(in_array('locality', $component['types'])) {
                 $this->data['city'] = ArrayHelper::getValue($component, 'long_name');
                 $this->city = ArrayHelper::getValue($component, 'long_name');
+            }
+            // Улица
+            if(in_array('route', $component['types'])) {
+                $this->data['street'] = ArrayHelper::getValue($component, 'long_name');
+                $this->street = ArrayHelper::getValue($component, 'long_name');
+            }
+            // Дом
+            if(in_array('street_number', $component['types'])) {
+                $this->data['house'] = ArrayHelper::getValue($component, 'long_name');
+                $this->house = ArrayHelper::getValue($component, 'long_name');
             }
         }
 

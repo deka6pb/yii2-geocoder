@@ -22,6 +22,10 @@ abstract class ObjectAbstract extends \yii\base\Object
 
     protected $city;
 
+    protected $street;
+
+    protected $house;
+
     protected $text;
 
     protected $data = [];

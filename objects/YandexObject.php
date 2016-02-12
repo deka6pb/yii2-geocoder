@@ -26,6 +26,7 @@ class YandexObject extends ObjectAbstract
         $this->address = ArrayHelper::getValue($metaData, 'text');
         // Получаем город
         $this->data['city'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName');
+        $this->city = $this->data['city'];
         // Получаем округ/область
         $this->data['area'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.AdministrativeAreaName');
         // Страну
@@ -34,8 +35,9 @@ class YandexObject extends ObjectAbstract
         $this->data['countrySlug'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.CountryCode');
         // Получаем ветку/улицу
         $this->data['thoroughfare'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName');
+        $this->data['street'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName');
         // Получаем номер квартиры
-        $this->data['flatNumber'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
+        $this->data['house'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
 
         $this->name = ArrayHelper::getValue($object, 'name', '');
         $this->type = ArrayHelper::getValue($metaData, 'kind', '');
