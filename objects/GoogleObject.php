@@ -50,6 +50,9 @@ class GoogleObject extends ObjectAbstract
             }
         }
 
+        // Всегда ставим город
+        $this->locality_type = self::LOCALITY_TYPE_CITY;
+
         // Получаем полный адрес
         $this->address = ArrayHelper::getValue($config, 'formatted_address');
 

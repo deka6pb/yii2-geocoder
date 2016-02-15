@@ -39,6 +39,9 @@ class YandexObject extends ObjectAbstract
         // Получаем номер квартиры
         $this->data['house'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
 
+        $this->data['house'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
+        $this->locality_type = strripos($this->city, 'деревня') ? self::LOCALITY_TYPE_VILLAGE : self::LOCALITY_TYPE_CITY;
+
         $this->name = ArrayHelper::getValue($object, 'name', '');
         $this->type = ArrayHelper::getValue($metaData, 'kind', '');
         $this->description = ArrayHelper::getValue($object, 'description', '');

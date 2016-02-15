@@ -14,6 +14,9 @@ abstract class ObjectAbstract extends \yii\base\Object
     const KIND_DISTRICT = 'district';
     const KIND_LOCALITY = 'locality';
 
+    const LOCALITY_TYPE_VILLAGE = 'village';
+    const LOCALITY_TYPE_CITY = 'city';
+
     protected $type;
 
     protected $name;
@@ -25,6 +28,8 @@ abstract class ObjectAbstract extends \yii\base\Object
     protected $street;
 
     protected $house;
+
+    protected $locality_type;
 
     protected $text;
 
@@ -135,5 +140,13 @@ abstract class ObjectAbstract extends \yii\base\Object
     public function isStreet()
     {
         return $this->type === self::KIND_STREET ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVillage()
+    {
+        return $this->locality_type === self::LOCALITY_TYPE_VILLAGE ? true : false;
     }
 }
