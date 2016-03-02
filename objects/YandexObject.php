@@ -36,10 +36,9 @@ class YandexObject extends ObjectAbstract
         // Получаем ветку/улицу
         $this->data['thoroughfare'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName');
         $this->data['street'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName');
-        // Получаем номер квартиры
+        // Получаем номер дома
         $this->data['house'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
 
-        $this->data['house'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber');
         $this->locality_type = strripos($this->city, 'деревн') === false
                                 ? self::LOCALITY_TYPE_CITY
                                 : self::LOCALITY_TYPE_VILLAGE;
