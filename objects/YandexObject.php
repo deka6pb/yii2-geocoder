@@ -19,6 +19,10 @@ class YandexObject extends ObjectAbstract
                     ? ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea')
                     : ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea');
 
+        $locality = ArrayHelper::getValue($area, 'Locality');
+
+        $thoroughfare = $this->processThoroughfare($locality);
+
         // Получаем полный адрес
         $this->address = ArrayHelper::getValue($metaData, 'text');
         // Получаем город
@@ -31,10 +35,10 @@ class YandexObject extends ObjectAbstract
         // Код страны
         $this->data['countrySlug'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.CountryCode');
         // Получаем ветку/улицу
-        $this->data['thoroughfare'] = ArrayHelper::getValue($area, 'Locality.Thoroughfare.ThoroughfareName');
-        $this->data['street'] = ArrayHelper::getValue($area, 'Locality.Thoroughfare.ThoroughfareName');
+        $this->data['thoroughfare'] = ArrayHelper::getValue($thoroughfare, 'ThoroughfareName');
+        $this->data['street'] = $this->data['thoroughfare'];
         // Получаем номер дома
-        $this->data['house'] = ArrayHelper::getValue($area, 'Locality.Thoroughfare.Premise.PremiseNumber');
+        $this->data['house'] = ArrayHelper::getValue($thoroughfare, 'Premise.PremiseNumber');
         $this->locality_type = strripos($this->city, 'деревн') === false
             ? self::LOCALITY_TYPE_CITY
             : self::LOCALITY_TYPE_VILLAGE;
@@ -42,5 +46,19 @@ class YandexObject extends ObjectAbstract
         $this->type = ArrayHelper::getValue($metaData, 'kind', '');
         $this->description = ArrayHelper::getValue($object, 'description', '');
         $this->point = new Point(['latitude' => $point[1], 'longitude' => $point[0]]);
+    }
+
+    public function processThoroughfare($locality)
+    {
+        while(!empty($locality['DependentLocality'])) {
+            $locality = $locality['DependentLocality'];
+        }
+
+
+        if(!empty($locality['Thoroughfare'])) {
+            return $locality['Thoroughfare'];
+        }
+
+        return null;
     }
 }
