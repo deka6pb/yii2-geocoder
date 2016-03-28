@@ -18,6 +18,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
+    "php-curl-class/php-curl-class": "*"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "~2.0",
