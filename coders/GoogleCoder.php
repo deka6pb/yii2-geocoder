@@ -21,6 +21,10 @@ class GoogleCoder extends CoderAbstract
         $limit = (int) ArrayHelper::getValue($params, 'results', 0);
         $objects = [];
 
+        if (!$data) {
+            return null;
+        }
+
         try {
             $items = ArrayHelper::getValue($data, 'results');
 
