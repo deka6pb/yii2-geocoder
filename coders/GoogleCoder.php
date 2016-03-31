@@ -39,7 +39,7 @@ class GoogleCoder extends CoderAbstract
             }
 
         } catch (\Exception $e) {
-            throw $e;
+            return null;
         }
 
         return $objects;
