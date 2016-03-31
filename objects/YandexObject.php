@@ -1,9 +1,11 @@
 <?php
 namespace deka6pb\geocoder\objects;
+
 use deka6pb\geocoder\abstraction\ObjectAbstract;
 use deka6pb\geocoder\Point;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+
 class YandexObject extends ObjectAbstract
 {
     public function initialization($config = [])
@@ -15,21 +17,25 @@ class YandexObject extends ObjectAbstract
         $point = ArrayHelper::getValue($object, 'Point.pos', '');
         $point = explode(' ', $point);
         $metaData = ArrayHelper::getValue($object, 'metaDataProperty.GeocoderMetaData', []);
-        $area = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea')
-                    ? ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea')
-                    : ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea');
+        $administrative = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea')
+            ? ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea')
+            : ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea');
 
-        $locality = ArrayHelper::getValue($area, 'Locality');
+        $locality = ArrayHelper::getValue($administrative, 'Locality');
 
         $thoroughfare = $this->processThoroughfare($locality);
 
         // Получаем полный адрес
         $this->address = ArrayHelper::getValue($metaData, 'text');
         // Получаем город
-        $this->data['city'] = ArrayHelper::getValue($area, 'Locality.LocalityName');
+        $this->data['city'] = ArrayHelper::getValue($administrative, 'Locality.LocalityName');
         $this->city = $this->data['city'];
         // Получаем округ/область
-        $this->data['area'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.AdministrativeArea.AdministrativeAreaName');
+        $this->data['area'] = ArrayHelper::getValue($metaData,
+            'AddressDetails.Country.AdministrativeArea.AdministrativeAreaName');
+
+        $this->data['sub_area'] = ArrayHelper::getValue($metaData,
+            'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName');
         // Страну
         $this->data['country'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.CountryName');
         // Код страны
@@ -50,12 +56,12 @@ class YandexObject extends ObjectAbstract
 
     public function processThoroughfare($locality)
     {
-        while(!empty($locality['DependentLocality'])) {
+        while (!empty($locality['DependentLocality'])) {
             $locality = $locality['DependentLocality'];
         }
 
 
-        if(!empty($locality['Thoroughfare'])) {
+        if (!empty($locality['Thoroughfare'])) {
             return $locality['Thoroughfare'];
         }
 
