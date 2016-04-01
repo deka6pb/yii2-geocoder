@@ -26,7 +26,8 @@ class YandexObject extends ObjectAbstract
         $thoroughfare = $this->processThoroughfare($locality);
 
         // Получаем полный адрес
-        $this->address = ArrayHelper::getValue($metaData, 'text');
+        $adressLine = ArrayHelper::getValue($metaData, 'text');
+        $this->address = $adressLine;
         // Получаем город
         $this->data['city'] = ArrayHelper::getValue($administrative, 'Locality.LocalityName');
         $this->city = $this->data['city'];
@@ -36,6 +37,10 @@ class YandexObject extends ObjectAbstract
 
         $this->data['sub_area'] = ArrayHelper::getValue($metaData,
             'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName');
+
+        $this->data['dependent_locality'] = ArrayHelper::getValue($metaData,
+            'AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.DependentLocality.DependentLocalityName');
+
         // Страну
         $this->data['country'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.CountryName');
         // Код страны
@@ -45,9 +50,7 @@ class YandexObject extends ObjectAbstract
         $this->data['street'] = $this->data['thoroughfare'];
         // Получаем номер дома
         $this->data['house'] = ArrayHelper::getValue($thoroughfare, 'Premise.PremiseNumber');
-        $this->locality_type = strripos($this->city, 'деревн') === false
-            ? self::LOCALITY_TYPE_CITY
-            : self::LOCALITY_TYPE_VILLAGE;
+        $this->locality_type = $this->defineLocalityType($adressLine);
         $this->name = ArrayHelper::getValue($object, 'name', '');
         $this->type = ArrayHelper::getValue($metaData, 'kind', '');
         $this->description = ArrayHelper::getValue($object, 'description', '');
@@ -66,5 +69,30 @@ class YandexObject extends ObjectAbstract
         }
 
         return null;
+    }
+
+    public function defineLocalityType($address)
+    {
+        $objectType = null;
+        foreach(['деревня', 'поселок', 'коттеджный поселок'] AS $type) {
+            if(strripos($address, $type)) {
+                switch($type) {
+                    case "деревня":
+                        $objectType = self::LOCALITY_TYPE_VILLAGE;
+                        break;
+                    case "поселок":
+                        $objectType = self::LOCALITY_TYPE_SETTLEMENT;
+                        break;
+                    case "коттеджный поселок":
+                        $objectType = self::LOCALITY_TYPE_COTTAGE_VILLAGE;
+                        break;
+                    default:
+                        $objectType = self::LOCALITY_TYPE_CITY;
+                        break;
+                }
+            }
+        }
+
+        return $objectType;
     }
 }

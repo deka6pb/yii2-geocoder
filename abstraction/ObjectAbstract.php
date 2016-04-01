@@ -14,7 +14,9 @@ abstract class ObjectAbstract extends \yii\base\Object
     const KIND_DISTRICT = 'district';
     const KIND_LOCALITY = 'locality';
 
+    const LOCALITY_TYPE_COTTAGE_VILLAGE = 'cottage village';
     const LOCALITY_TYPE_VILLAGE = 'village';
+    const LOCALITY_TYPE_SETTLEMENT = 'settlement';
     const LOCALITY_TYPE_CITY = 'city';
 
     protected $type;
@@ -127,6 +129,14 @@ abstract class ObjectAbstract extends \yii\base\Object
     }
 
     /**
+     * @return mixed
+     */
+    public function getLocalityType()
+    {
+        return $this->locality_type;
+    }
+
+    /**
      * @return bool
      */
     public function isHouse()
@@ -148,5 +158,39 @@ abstract class ObjectAbstract extends \yii\base\Object
     public function isVillage()
     {
         return $this->locality_type === self::LOCALITY_TYPE_VILLAGE ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCity()
+    {
+        return $this->locality_type === self::LOCALITY_TYPE_CITY ? true : false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocalityTypes()
+    {
+        return [
+            self::LOCALITY_TYPE_CITY,
+            self::LOCALITY_TYPE_VILLAGE,
+            self::LOCALITY_TYPE_COTTAGE_VILLAGE,
+            self::LOCALITY_TYPE_SETTLEMENT,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocalityTypeAliases()
+    {
+        return [
+            self::LOCALITY_TYPE_CITY => 'city',
+            self::LOCALITY_TYPE_VILLAGE => 'village',
+            self::LOCALITY_TYPE_COTTAGE_VILLAGE => 'cottage village',
+            self::LOCALITY_TYPE_SETTLEMENT => 'settlement',
+        ];
     }
 }
