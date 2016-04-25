@@ -46,7 +46,7 @@ class YandexObject extends ObjectAbstract
         // Код страны
         $this->data['countrySlug'] = ArrayHelper::getValue($metaData, 'AddressDetails.Country.CountryCode');
         // Получаем ветку/улицу
-        $this->data['thoroughfare'] = ArrayHelper::getValue($thoroughfare, 'ThoroughfareName');
+        $this->data['thoroughfare'] = $this->processStreetName($thoroughfare);
         $this->data['street'] = $this->data['thoroughfare'];
         // Получаем номер дома
         $this->data['house'] = ArrayHelper::getValue($thoroughfare, 'Premise.PremiseNumber');
@@ -59,16 +59,35 @@ class YandexObject extends ObjectAbstract
 
     public function processThoroughfare($locality)
     {
-        while (!empty($locality['DependentLocality'])) {
+        $thoroughfare = null;
+
+        if (!empty($locality['DependentLocality'])) {
             $locality = $locality['DependentLocality'];
         }
 
-
         if (!empty($locality['Thoroughfare'])) {
-            return $locality['Thoroughfare'];
+            $thoroughfare = $locality['Thoroughfare'];
         }
 
-        return null;
+        if(!empty($locality['Premise'])) {
+            $thoroughfare = $locality;
+        }
+
+        return $thoroughfare;
+    }
+
+    public function processStreetName($thoroughfare)
+    {
+        $street = null;
+
+        if(ArrayHelper::getValue($thoroughfare, 'ThoroughfareName')) {
+            $street = ArrayHelper::getValue($thoroughfare, 'ThoroughfareName');
+        }
+        if(ArrayHelper::getValue($thoroughfare, 'DependentLocalityName')) {
+            $street = ArrayHelper::getValue($thoroughfare, 'DependentLocalityName');
+        }
+
+        return $street;
     }
 
     public function defineLocalityType($address)
