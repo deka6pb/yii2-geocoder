@@ -62,18 +62,24 @@ class YandexObject extends ObjectAbstract
         $thoroughfare = null;
 
         if (!empty($locality['DependentLocality'])) {
-            $locality = $locality['DependentLocality'];
+            $thoroughfare = self::recursiveProcess($locality, 'DependentLocality');
         }
 
         if (!empty($locality['Thoroughfare'])) {
-            $thoroughfare = $locality['Thoroughfare'];
-        }
-
-        if(!empty($locality['Premise'])) {
-            $thoroughfare = $locality;
+            $thoroughfare = self::recursiveProcess($locality, 'Thoroughfare');
         }
 
         return $thoroughfare;
+    }
+
+    public static function recursiveProcess($data, $name)
+    {
+        $value = ArrayHelper::getValue($data, $name);
+        if($value === null) {
+            return $data;
+        }
+
+        return self::recursiveProcess($value, $name);
     }
 
     public function processStreetName($thoroughfare)
