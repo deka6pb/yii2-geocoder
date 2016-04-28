@@ -61,6 +61,10 @@ class YandexObject extends ObjectAbstract
     {
         $thoroughfare = null;
 
+        if(!empty($locality['Premise'])) {
+            return $locality;
+        }
+
         if (!empty($locality['DependentLocality'])) {
             $thoroughfare = self::recursiveProcess($locality, 'DependentLocality');
         }
