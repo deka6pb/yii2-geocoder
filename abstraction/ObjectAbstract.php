@@ -163,6 +163,22 @@ abstract class ObjectAbstract extends \yii\base\Object
     /**
      * @return bool
      */
+    public function isSettlement()
+    {
+        return $this->locality_type === self::LOCALITY_TYPE_SETTLEMENT ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCottageVillage()
+    {
+        return $this->locality_type === self::LOCALITY_TYPE_COTTAGE_VILLAGE ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
     public function isCity()
     {
         return $this->locality_type === self::LOCALITY_TYPE_CITY ? true : false;

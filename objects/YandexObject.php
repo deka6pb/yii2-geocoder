@@ -103,6 +103,9 @@ class YandexObject extends ObjectAbstract
     public function defineLocalityType($address)
     {
         $objectType = null;
+
+        $address = str_replace('ё', 'е', $address);
+
         foreach(['деревня', 'поселок', 'коттеджный поселок'] AS $type) {
             if(strripos($address, $type)) {
                 switch($type) {
