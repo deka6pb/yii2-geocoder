@@ -67,6 +67,10 @@ class YandexObject extends ObjectAbstract
 
         if (!empty($locality['DependentLocality'])) {
             $thoroughfare = self::recursiveProcess($locality, 'DependentLocality');
+
+            if(ArrayHelper::getValue($thoroughfare, 'Thoroughfare')) {
+                return ArrayHelper::getValue($thoroughfare, 'Thoroughfare');
+            }
         }
 
         if (!empty($locality['Thoroughfare'])) {
