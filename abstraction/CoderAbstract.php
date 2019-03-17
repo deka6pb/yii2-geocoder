@@ -4,10 +4,10 @@ namespace deka6pb\geocoder\abstraction;
 
 use deka6pb\geocoder\Point;
 
-abstract class CoderAbstract extends \yii\base\Object implements CoderInterface
+abstract class CoderAbstract extends \yii\base\BaseObject implements CoderInterface
 {
     /**
-     * Максимальное кол-во попыток получить данные
+     * Maximum number of attempts to get data
      */
     const MAX_ATTEMPT = 5;
 
@@ -17,7 +17,7 @@ abstract class CoderAbstract extends \yii\base\Object implements CoderInterface
             throw new \InvalidArgumentException('Address must be a string');
         }
 
-        return static::getData($address, compact('results'));
+        return static::getData($address, array_merge(compact( 'results'), $params));
     }
 
     public static function findOneByAddress($address, array $params = [])
