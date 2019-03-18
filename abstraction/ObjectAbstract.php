@@ -5,7 +5,7 @@ namespace deka6pb\geocoder\abstraction;
 use deka6pb\geocoder\Point;
 use yii\helpers\ArrayHelper;
 
-abstract class ObjectAbstract extends \yii\base\Object
+abstract class ObjectAbstract extends \yii\base\BaseObject
 {
 
     const KIND_METRO = 'metro';

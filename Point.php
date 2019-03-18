@@ -6,7 +6,6 @@ namespace deka6pb\geocoder;
 use Location\Coordinate;
 use Location\Distance\DistanceInterface;
 use Location\Distance\Vincenty;
-use yii\base\Object as BaseObject;
 
 /**
  * Class Point
@@ -15,7 +14,7 @@ use yii\base\Object as BaseObject;
  * @property double $latitude
  * @property double $longitude
  */
-class Point extends BaseObject
+class Point extends \yii\base\BaseObject
 {
     /**
      * @var DistanceInterface

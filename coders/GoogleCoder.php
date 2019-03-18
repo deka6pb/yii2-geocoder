@@ -14,7 +14,7 @@ class GoogleCoder extends CoderAbstract
     {
         $curl = new Curl();
 
-        $data = $curl->get('http://maps.googleapis.com/maps/api/geocode/json', array_merge([
+        $data = $curl->get('https://maps.googleapis.com/maps/api/geocode/json', array_merge([
             'address' => $query
         ], $params));
 
